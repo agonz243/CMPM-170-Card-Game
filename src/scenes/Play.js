@@ -13,23 +13,9 @@ class Play extends Phaser.Scene {
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
 
-        // Text config
-        let textConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
-            padding: {
-            top: 5,
-            bottom: 5,
-            },
-            fixedWidth: 100
-        }
-
         // Create align grid for placing cards in play area
         this.aGrid = new AlignGrid({scene: this, rows: 10, cols: 9});
-        this.aGrid.showNumbers(); // FIXME
+        //this.aGrid.showNumbers(); // FIXME
 
         // Instantiate deck as array and the player's three cards
         this.deck = [];
@@ -37,7 +23,7 @@ class Play extends Phaser.Scene {
         this.card2;
         this.card3;
 
-        this.hand1 = this.add.rectangle(0, 0, 1, 1);
+        this.hand1 = this.add.rectangle(0, 0, 1, 1); // Anchor locations for cards in hand
         this.hand2 = this.add.rectangle(0, 0, 1, 1);
         this.hand3 = this.add.rectangle(0, 0, 1, 1);
 
@@ -47,9 +33,10 @@ class Play extends Phaser.Scene {
         // Populate deck
         this.populateDeck();
 
-        // Draw three cards and set hand positions
+        // Draw three cards and set hand/play positions
         this.drawThree();
         this.setHandPos();
+        this.setPlayPos(this);
 
 
 
@@ -57,17 +44,13 @@ class Play extends Phaser.Scene {
         this.add.existing(this.card1);
         this.add.existing(this.card2);
         this.add.existing(this.card3);
-
-        // TESTSTETETTET Print names of cards
-        console.log(this.card1.cardName);
-        console.log(this.card2.cardName);
-        console.log(this.card3.cardName);
     }
 
     update() {
         this.handleHover(this);
     }
 
+/*------------------------------------------------------------------------------------------*/
     // FUNCTION: Populates the deck with card objects with their corresponding attributes
     populateDeck() {
         // Add cards to deck
@@ -155,5 +138,23 @@ class Play extends Phaser.Scene {
                 duration: 100
             });
         }, scene);
+    }
+
+    // FUNCTION: Sets the play positions for the three cards
+    setPlayPos(scene) {
+        // Position 1
+        scene.playPos1 = scene.add.rectangle(0, 0, 100, 200);
+        scene.aGrid.placeAtIndex(38, scene.playPos1);
+        scene.playPos1.setStrokeStyle(2, 0xffffff);
+
+        // Position 2
+        scene.playPos2 = scene.add.rectangle(0, 0, 100, 200);
+        scene.aGrid.placeAtIndex(40, scene.playPos2);
+        scene.playPos2.setStrokeStyle(2, 0xffffff);
+
+        // Position 3
+        scene.playPos3 = scene.add.rectangle(0, 0, 100, 200);
+        scene.aGrid.placeAtIndex(42, scene.playPos3);
+        scene.playPos3.setStrokeStyle(2, 0xffffff);
     }
 }
