@@ -26,6 +26,9 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,
         'FATE AND CHAOS', menuConfig).setOrigin(0.5);
 
+        this.add.text(game.config.width/2, game.config.height - game.config.height/4,
+        'Press [SPACE] to consult the old ones', menuConfig).setOrigin(0.5);
+
         // Define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
