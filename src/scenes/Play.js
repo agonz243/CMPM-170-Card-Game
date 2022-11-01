@@ -5,13 +5,13 @@ class Play extends Phaser.Scene {
 
     preload() {
         this.load.image('cardface', './assets/cardFace.png');
-        this.load.image('spaceship', './assets/spaceship.png');
+        this.load.image('bg', './assets/background.png');
     }
 
     create() {
 
-        // green UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
+        // Add background
+        this.add.image(game.config.width / 2, game.config.height / 2, 'bg');
 
         // Create align grid for placing cards in play area
         this.aGrid = new AlignGrid({scene: this, rows: 10, cols: 9});
@@ -125,7 +125,6 @@ class Play extends Phaser.Scene {
             scene.tweens.add({
                 targets: gameObject,
                 y: {from:gameObject.y, to:this.hand1.y - hoverOffset},
-                repeat: 0,
                 duration: 100
             });
         }, scene);
@@ -134,7 +133,6 @@ class Play extends Phaser.Scene {
             scene.tweens.add({
                 targets: gameObject,
                 y: {from:gameObject.y, to:this.hand1.y},
-                repeat: 0,
                 duration: 100
             });
         }, scene);
