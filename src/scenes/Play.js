@@ -53,6 +53,11 @@ class Play extends Phaser.Scene {
         this.add.existing(this.card1);
         this.add.existing(this.card2);
         this.add.existing(this.card3);
+
+        // TESTSTETETTET Print names of cards
+        console.log(this.card1.cardName);
+        console.log(this.card2.cardName);
+        console.log(this.card3.cardName);
     }
 
     update() {
@@ -76,10 +81,13 @@ class Play extends Phaser.Scene {
 
     // FUNCTION: Draws three random cards from the deck
     drawThree() {
+        // Shuffle deck
+        Phaser.Utils.Array.Shuffle(this.deck);
+
         // Draw three cards
-        this.card1 = this.deck[0];
-        this.card2 = this.deck[1];
-        this.card3 = this.deck[2];
+        this.card1 = Phaser.Utils.Array.Remove(this.deck, this.deck[0]);
+        this.card2 = Phaser.Utils.Array.Remove(this.deck, this.deck[1]);
+        this.card3 = Phaser.Utils.Array.Remove(this.deck, this.deck[2]);
 
         // Place cards at respective positions
         this.aGrid.placeAtIndex(75, this.card1);
