@@ -65,7 +65,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-
+        this.handleHover(this);
     }
 
     // FUNCTION: Populates the deck with card objects with their corresponding attributes
@@ -133,5 +133,27 @@ class Play extends Phaser.Scene {
             ease: 'Power2',
             completeDelay: 3000
         });
+    }
+
+    // FUNCTION: Handles animation for hovering over cards in hand
+    handleHover(scene) {
+        // Handle hovering over cards
+        scene.input.on('gameobjectover', function (pointer, gameObject) {
+            scene.tweens.add({
+                targets: gameObject,
+                y: {from:gameObject.y, to:this.hand1.y - hoverOffset},
+                repeat: 0,
+                duration: 100
+            });
+        }, scene);
+
+        scene.input.on('gameobjectout', function (pointer, gameObject) {
+            scene.tweens.add({
+                targets: gameObject,
+                y: {from:gameObject.y, to:this.hand1.y},
+                repeat: 0,
+                duration: 100
+            });
+        }, scene);
     }
 }

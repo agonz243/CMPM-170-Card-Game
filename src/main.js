@@ -13,3 +13,5 @@ let keyF, keyR, keyLEFT, keyRIGHT, keySPACE;
 // Define global variables
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
+
+let hoverOffset = 10;

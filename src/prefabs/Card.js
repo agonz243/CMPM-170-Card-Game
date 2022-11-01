@@ -14,6 +14,8 @@ class Card extends Phaser.GameObjects.Sprite {
       this.x = game.config.width / 2;
       this.y = game.config.height / 2;
 
+      // Set as interactive
+      this.setInteractive();
     }
 
     effect() {
