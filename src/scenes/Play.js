@@ -211,24 +211,26 @@ class Play extends Phaser.Scene {
 
     // FUNCTION: Adds a card in hand to the currently selected slot
     slotCard(scene) {
-        scene.card1.on('pointerdown', function (pointer) {
-            // Move card to slot
-            if (scene.selectedSlot != null) {
-                // Move card to slot
-                scene.tweens.add({
-                    targets: this,
-                    x: scene.selectedSlot.x,
-                    y: scene.selectedSlot.y,
-                    duration: 3000,
-                    ease: 'Power2',
-                    completeDelay: 3000
-                });
-
-                // Lock in card
-                this.disableInteractive();
-                scene.selectedSlot.disableInteractive();
-                scene.selectedSlot.isFilled = false;
+        
+        scene.input.on('gameobjectdown', function (pointer, gameObject) {
+            if (gameObject.cardName) { // if object has a name, it is a card
+                if (scene.selectedSlot != null) {
+                    // Move card to slot
+                    scene.tweens.add({
+                        targets: gameObject,
+                        x: scene.selectedSlot.x,
+                        y: scene.selectedSlot.y,
+                        duration: 3000,
+                        ease: 'Power2',
+                        completeDelay: 3000
+                    });
+    
+                    // Lock in card
+                    gameObject.disableInteractive();
+                    scene.selectedSlot.disableInteractive();
+                    scene.selectedSlot.isFilled = false;
+                }
             }
-        });
+        }, scene);
     }
 }
