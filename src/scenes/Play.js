@@ -27,7 +27,7 @@ class Play extends Phaser.Scene {
         this.hand2 = this.add.rectangle(0, 0, 1, 1);
         this.hand3 = this.add.rectangle(0, 0, 1, 1);
 
-        this.slots = [] // Array representing slots in play area
+        this.slots = [null, null, null] // Array representing slots in play area
         this.selectedSlot = null; // Currently selected slot for placing a card
 
         // Instantiate array of card names
@@ -57,7 +57,10 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-
+        // Check if slots are full
+        if (!this.slots.includes(null)) {
+            console.log("Slots full");
+        }
     }
 
 /*------------------------------------------------------------------------------------------*/
@@ -225,12 +228,31 @@ class Play extends Phaser.Scene {
                         completeDelay: 3000
                     });
     
-                    // Lock in card
+                    // Lock in card so it can no longer be moveds
                     gameObject.disableInteractive();
                     scene.selectedSlot.disableInteractive();
                     scene.selectedSlot.isFilled = false;
+
+                    // Add card to slot array
+                    scene.addToSlotArr(scene, gameObject, scene.selectedSlot);
                 }
             }
         }, scene);
+    }
+
+    // FUNCTION: Adds a card to the array representing card slots
+    addToSlotArr(scene, card, slot) {
+        // Start in first slot by default
+        let slotIndex = 0;
+
+        // Check if slot is first or second
+        if (slot == scene.playPos2) {
+            slotIndex = 1;
+        } else if (slot == scene.playPos3) {
+            slotIndex = 2
+        }
+
+        // Add card at desired slot
+        scene.slots[slotIndex] = card;
     }
 }
