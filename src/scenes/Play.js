@@ -27,6 +27,9 @@ class Play extends Phaser.Scene {
         this.hand2 = this.add.rectangle(0, 0, 1, 1);
         this.hand3 = this.add.rectangle(0, 0, 1, 1);
 
+        this.slots = [] // Array representing slots in play area
+        this.selectedSlot = null; // Currently selected slot for placing a card
+
         // Instantiate array of card names
         this.cardNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 
@@ -50,6 +53,7 @@ class Play extends Phaser.Scene {
 
         // Handle selection of card slot
         this.handlePlayPos(this);
+        this.slotCard(this);
     }
 
     update() {
@@ -151,44 +155,80 @@ class Play extends Phaser.Scene {
     // FUNCTION: Sets the play positions for the three cards
     setPlayPos(scene) {
         // Position 1
-        scene.playPos1 = scene.add.rectangle(0, 0, 100, 200);
+        scene.playPos1 = scene.add.rectangle(0, 0, 120, 200);
         scene.aGrid.placeAtIndex(38, scene.playPos1);
         scene.playPos1.setStrokeStyle(2, 0xffffff);
         scene.playPos1.setInteractive();
 
         // Position 2
-        scene.playPos2 = scene.add.rectangle(0, 0, 100, 200);
+        scene.playPos2 = scene.add.rectangle(0, 0, 120, 200);
         scene.aGrid.placeAtIndex(40, scene.playPos2);
         scene.playPos2.setStrokeStyle(2, 0xffffff);
         scene.playPos2.setInteractive();
 
         // Position 3
-        scene.playPos3 = scene.add.rectangle(0, 0, 100, 200);
+        scene.playPos3 = scene.add.rectangle(0, 0, 120, 200);
         scene.aGrid.placeAtIndex(42, scene.playPos3);
         scene.playPos3.setStrokeStyle(2, 0xffffff);
         scene.playPos3.setInteractive();
     }
 
+    // FUNCTION: Handle selection of card slot
     handlePlayPos(scene) {
         // Handle position 1
         scene.playPos1.on('pointerdown', function (pointer) {
+            // Highlight slot
             this.isFilled = true;
             scene.playPos2.isFilled = false;
             scene.playPos3.isFilled = false;
+
+            // Select slot
+            scene.selectedSlot = scene.playPos1;
         });
 
         // Handle position 2
         scene.playPos2.on('pointerdown', function (pointer) {
+            // Highlight slot
             this.isFilled = true;
             scene.playPos1.isFilled = false;
             scene.playPos3.isFilled = false;
+
+            // Select slot
+            scene.selectedSlot = scene.playPos2;
         });
 
-        // Handle position 1
+        // Handle position 3
         scene.playPos3.on('pointerdown', function (pointer) {
+            // Highlight slot
             this.isFilled = true;
             scene.playPos1.isFilled = false;
             scene.playPos2.isFilled = false;
+
+            // Select slot
+            scene.selectedSlot = scene.playPos3;
+        });
+    }
+
+    // FUNCTION: Adds a card in hand to the currently selected slot
+    slotCard(scene) {
+        scene.card1.on('pointerdown', function (pointer) {
+            // Move card to slot
+            if (scene.selectedSlot != null) {
+                // Move card to slot
+                scene.tweens.add({
+                    targets: this,
+                    x: scene.selectedSlot.x,
+                    y: scene.selectedSlot.y,
+                    duration: 3000,
+                    ease: 'Power2',
+                    completeDelay: 3000
+                });
+
+                // Lock in card
+                this.disableInteractive();
+                scene.selectedSlot.disableInteractive();
+                scene.selectedSlot.isFilled = false;
+            }
         });
     }
 }
