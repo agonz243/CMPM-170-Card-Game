@@ -44,10 +44,16 @@ class Play extends Phaser.Scene {
         this.add.existing(this.card1);
         this.add.existing(this.card2);
         this.add.existing(this.card3);
+
+        // Handle animation when hovering over cards in hand
+        this.handleHover(this);
+
+        // Handle selection of card slot
+        this.handlePlayPos(this);
     }
 
     update() {
-        this.handleHover(this);
+
     }
 
 /*------------------------------------------------------------------------------------------*/
@@ -122,19 +128,23 @@ class Play extends Phaser.Scene {
     handleHover(scene) {
         // Handle hovering over cards
         scene.input.on('gameobjectover', function (pointer, gameObject) {
-            scene.tweens.add({
-                targets: gameObject,
-                y: {from:gameObject.y, to:this.hand1.y - hoverOffset},
-                duration: 100
-            });
+            if (gameObject.cardName) { // if object has a name, it is a card
+                scene.tweens.add({
+                    targets: gameObject,
+                    y: {from:gameObject.y, to:this.hand1.y - hoverOffset},
+                    duration: 100
+                });
+            }
         }, scene);
 
         scene.input.on('gameobjectout', function (pointer, gameObject) {
-            scene.tweens.add({
-                targets: gameObject,
-                y: {from:gameObject.y, to:this.hand1.y},
-                duration: 100
-            });
+            if (gameObject.cardName) { // If object has a name, it is a card
+                scene.tweens.add({
+                    targets: gameObject,
+                    y: {from:gameObject.y, to:this.hand1.y},
+                    duration: 100
+                });
+            }
         }, scene);
     }
 
@@ -144,15 +154,41 @@ class Play extends Phaser.Scene {
         scene.playPos1 = scene.add.rectangle(0, 0, 100, 200);
         scene.aGrid.placeAtIndex(38, scene.playPos1);
         scene.playPos1.setStrokeStyle(2, 0xffffff);
+        scene.playPos1.setInteractive();
 
         // Position 2
         scene.playPos2 = scene.add.rectangle(0, 0, 100, 200);
         scene.aGrid.placeAtIndex(40, scene.playPos2);
         scene.playPos2.setStrokeStyle(2, 0xffffff);
+        scene.playPos2.setInteractive();
 
         // Position 3
         scene.playPos3 = scene.add.rectangle(0, 0, 100, 200);
         scene.aGrid.placeAtIndex(42, scene.playPos3);
         scene.playPos3.setStrokeStyle(2, 0xffffff);
+        scene.playPos3.setInteractive();
+    }
+
+    handlePlayPos(scene) {
+        // Handle position 1
+        scene.playPos1.on('pointerdown', function (pointer) {
+            this.isFilled = true;
+            scene.playPos2.isFilled = false;
+            scene.playPos3.isFilled = false;
+        });
+
+        // Handle position 2
+        scene.playPos2.on('pointerdown', function (pointer) {
+            this.isFilled = true;
+            scene.playPos1.isFilled = false;
+            scene.playPos3.isFilled = false;
+        });
+
+        // Handle position 1
+        scene.playPos3.on('pointerdown', function (pointer) {
+            this.isFilled = true;
+            scene.playPos1.isFilled = false;
+            scene.playPos2.isFilled = false;
+        });
     }
 }
