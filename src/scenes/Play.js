@@ -72,7 +72,8 @@ class Play extends Phaser.Scene {
             let card = new Card(this, this.cardNames[i], 'Dummy Suit', 'cardface'); // FIXME
             Align.scaleToGameW(card, .1);
 
-            card.isUpsideDown = false; // Set orientation FIXME
+            card.isUpsideDown = (Math.random() < 0.5); // Set orientation
+            if (card.isUpsideDown) { card.flipX = true; };
             card.interpretationUp = ""; // Rightside up interpretation FIXME
             card.interpretationDown = ""; // Upside down interpretation FIXME
             this.deck.push(card); // Add card to deck
