@@ -47,11 +47,15 @@ let cthulhuEffect = function(scene, card) {
     if (nextIndex > 2) { nextIndex = 0; }
 
     let cardToFlip = scene.slots[nextIndex];
-    cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown;
+
+    if (!cardToFlip.isProtected) {
+       cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown; 
+    }
+    
 }
 
 let azathothEffect = function(scene, card) {
-    if (card.isUpsideDown) {
+    if (card.isUpsideDown && !card.isProtected) {
         card.isUpsideDown = !card.isUpsideDown;
     }
 }
@@ -68,13 +72,25 @@ let hydraEffect = function(scene, card) {
     let nextCard = scene.slots[nextIndex];
     let prevCard = scene.slots[prevIndex];
 
-    if (nextCard.isUpsideDown && nextCard.cardSuit == "Old One") {
+    if (nextCard.isUpsideDown && !nextCard.isProtected && nextCard.cardSuit == "Old One") {
         nextCard.isUpsideDown = false;
     }
 
-    if (prevCard.isUpsideDown && prevCard.cardSuit == "Old One") {
+    if (prevCard.isUpsideDown && !nextCard.isProtected && prevCard.cardSuit == "Old One") {
         prevCard.isUpsideDown = false;
     }
 }
 
-effects.push(hydraEffect);
+let lilithEffect = function(scene, card) {
+        // Get card to the left
+        let currIndex = scene.slots.indexOf(card);
+        let prevIndex = currIndex - 1;
+
+        if (prevIndex < 0) { prevIndex = 2; }
+
+        let prevCard = scene.slots[prevIndex];
+
+        prevCard.isProtected = true;
+}
+
+effects.push(lilithEffect);
