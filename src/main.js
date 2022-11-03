@@ -16,3 +16,4 @@ let borderPadding = borderUISize / 3;
 
 let hoverOffset = 10;
 let cardSFX;
+let enlargedArt;

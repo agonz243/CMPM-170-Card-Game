@@ -76,7 +76,7 @@ class Play extends Phaser.Scene {
         // Add cards to deck
         for (let i = 0; i < game.settings.cardCount; i++) {
             // Create card instance with corresponding attributes
-            let card = new Card(this, this.cardNames[i], 'Dummy Suit', 'cardface'); // FIXME
+            let card = new Card(this, this.cardNames[i], 'Dummy Suit', this.cardNames[0]); // FIXME
             Align.scaleToGameW(card, .1);
 
             card.isUpsideDown = (Math.random() < 0.5); // Set orientation
@@ -87,6 +87,7 @@ class Play extends Phaser.Scene {
 
             // Assign card effect from Effects.js
             card.effect = effects[0] // FIXME
+            card.disableInteractive();
         }
     }
 
@@ -104,6 +105,11 @@ class Play extends Phaser.Scene {
         this.aGrid.placeAtIndex(52, this.card1);
         this.aGrid.placeAtIndex(52, this.card2);
         this.aGrid.placeAtIndex(52, this.card3);
+
+        // Set as interactive
+        this.card1.setInteractive();
+        this.card2.setInteractive();
+        this.card3.setInteractive();
     }
 
     // FUNCTION: Sets the positions for the three cards in the player's hand
@@ -152,6 +158,10 @@ class Play extends Phaser.Scene {
                     y: {from:gameObject.y, to:this.hand1.y - hoverOffset},
                     duration: 100
                 });
+
+                // Enlarge card art
+                enlargedArt = this.add.image(gameObject.x, gameObject.y - 20, gameObject.texture.key);
+                enlargedArt.setScale(0.2);
             }
         }, scene);
 
@@ -162,6 +172,9 @@ class Play extends Phaser.Scene {
                     y: {from:gameObject.y, to:this.hand1.y},
                     duration: 100
                 });
+
+                // Remove enlarged art
+                enlargedArt.destroy();
             }
         }, scene);
     }
@@ -242,13 +255,14 @@ class Play extends Phaser.Scene {
                         completeDelay: 3000
                     });
     
-                    // Lock in card so it can no longer be moveds
+                    // Lock in card so it can no longer be moved
                     gameObject.disableInteractive();
                     scene.selectedSlot.disableInteractive();
                     scene.selectedSlot.isFilled = false;
 
                     // Add card to slot array
                     scene.addToSlotArr(scene, gameObject, scene.selectedSlot);
+                    scene.selectedSlot = null;
                 }
             }
         }, scene);
