@@ -18,4 +18,12 @@ class Card extends Phaser.GameObjects.Sprite {
       // Set as interactive
       this.setInteractive();
     }
+
+    update() {
+      if (this.isUpsideDown) { 
+        this.flipY = true; 
+      } else {
+        this.flipY = false;
+      }
+    }
 }

@@ -64,6 +64,11 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+        // Update cards
+        this.card1.update();
+        this.card2.update();
+        this.card3.update();
+
         // Check if slots are full
         if (!this.slots.includes(null)) {
             console.log("Slots full");
@@ -80,7 +85,7 @@ class Play extends Phaser.Scene {
             Align.scaleToGameW(card, .1);
 
             card.isUpsideDown = (Math.random() < 0.5); // Set orientation
-            if (card.isUpsideDown) { card.flipY = true; };
+            //if (card.isUpsideDown) { card.flipY = true; };
             card.interpretationUp = ""; // Rightside up interpretation FIXME
             card.interpretationDown = ""; // Upside down interpretation FIXME
             this.deck.push(card); // Add card to deck
