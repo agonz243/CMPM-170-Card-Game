@@ -6,12 +6,14 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image('cardface', './assets/cardFace.png');
         this.load.image('bg', './assets/background.png');
+        this.load.audio('placecard', './assets/cardflip.wav');
     }
 
     create() {
 
-        // Add background
+        // Add background and sounds
         this.add.image(game.config.width / 2, game.config.height / 2, 'bg');
+        cardSFX = this.sound.add('placecard');
 
         // Create align grid for placing cards in play area
         this.aGrid = new AlignGrid({scene: this, rows: 10, cols: 9});
@@ -216,12 +218,15 @@ class Play extends Phaser.Scene {
         });
     }
 
-    // FUNCTION: Adds a card in hand to the currently selected slot
+    // FUNCTION: Moves a card in hand to the currently selected slot
     slotCard(scene) {
         
         scene.input.on('gameobjectdown', function (pointer, gameObject) {
             if (gameObject.cardName) { // if object has a name, it is a card
                 if (scene.selectedSlot != null) {
+                    // Play sfx
+                    cardSFX.play();
+
                     // Move card to slot
                     scene.tweens.add({
                         targets: gameObject,
