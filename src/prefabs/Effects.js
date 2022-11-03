@@ -50,5 +50,10 @@ let cthulhuEffect = function(scene, card) {
     cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown;
 }
 
+let azathothEffect = function(scene, card) {
+    if (card.isUpsideDown) {
+        card.isUpsideDown = !card.isUpsideDown;
+    }
+}
 
-effects.push(cthulhuEffect);
+effects.push(azathothEffect);
