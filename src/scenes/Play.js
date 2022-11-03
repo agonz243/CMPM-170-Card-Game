@@ -7,6 +7,11 @@ class Play extends Phaser.Scene {
         this.load.image('cardface', './assets/cardFace.png');
         this.load.image('bg', './assets/background.png');
         this.load.audio('placecard', './assets/cardflip.wav');
+
+        // Load card faces
+        this.load.image('Madman', './assets/cards/madman_card.png');
+        this.load.image('Scholar', './assets/cards/scholar_card.png');
+        this.load.image('Wilbur Whateley', './assets/cards/wilbur_card.png');
     }
 
     create() {
@@ -33,7 +38,7 @@ class Play extends Phaser.Scene {
         this.selectedSlot = null; // Currently selected slot for placing a card
 
         // Instantiate array of card names
-        this.cardNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+        this.cardNames = ["Madman", "Scholar", "Wilbur Whateley", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 
         // Populate deck
         this.populateDeck();
