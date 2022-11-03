@@ -5,6 +5,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
       // Preload assets for menu
+      this.load.image('title', './assets/titlescreen.png');
     }
 
     create() {
@@ -22,12 +23,7 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        // Show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,
-        'FATE AND CHAOS', menuConfig).setOrigin(0.5);
-
-        this.add.text(game.config.width/2, game.config.height - game.config.height/4,
-        'Press [SPACE] to consult the old ones', menuConfig).setOrigin(0.5);
+        this.add.image(game.config.width / 2, game.config.height / 2, 'title');
 
         // Define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
