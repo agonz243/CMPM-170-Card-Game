@@ -10,15 +10,12 @@ class Card extends Phaser.GameObjects.Sprite {
       this.isUpsideDown = false;
       this.interpretationUp = "";
       this.interpretationDown = "";
+      this.effect;
 
       this.x = game.config.width / 2;
       this.y = game.config.height / 2;
 
       // Set as interactive
       this.setInteractive();
-    }
-
-    effect() {
-
     }
 }

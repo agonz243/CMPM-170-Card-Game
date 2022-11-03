@@ -77,6 +77,9 @@ class Play extends Phaser.Scene {
             card.interpretationUp = ""; // Rightside up interpretation FIXME
             card.interpretationDown = ""; // Upside down interpretation FIXME
             this.deck.push(card); // Add card to deck
+
+            // Assign card effect from Effects.js
+            card.effect = effects[0] // FIXME
         }
     }
 
