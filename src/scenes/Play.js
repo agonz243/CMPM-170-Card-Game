@@ -75,6 +75,11 @@ class Play extends Phaser.Scene {
         if (!this.slots.includes(null)) {
             console.log("Slots full");
         }
+
+        // A way to test card effects FIXME
+        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.card1.effect(this, this.card1);   
+        }
     }
 
 /*------------------------------------------------------------------------------------------*/
@@ -92,7 +97,7 @@ class Play extends Phaser.Scene {
             this.deck.push(card); // Add card to deck
 
             // Assign card effect from Effects.js
-            card.effect = effects[1] // FIXME
+            card.effect = effects[0] // FIXME
             card.disableInteractive();
         }
     }

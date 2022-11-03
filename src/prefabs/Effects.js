@@ -1,10 +1,5 @@
 let effects = [];
 
-let testEffect = function (scene) {
-    console.log(scene.card1.cardName);
-}
-
-effects.push(testEffect);
 
 let nyaEffect = function (scene) {
     let tempArr = [null, null, null];
@@ -44,4 +39,16 @@ let nyaEffect = function (scene) {
     }
 }
 
-effects.push(nyaEffect);
+let cthulhuEffect = function(scene, card) {
+    // Flip the card to the right of cthulhu
+    let currIndex = scene.slots.indexOf(card);
+    let nextIndex = currIndex + 1;
+
+    if (nextIndex > 2) { nextIndex = 0; }
+
+    let cardToFlip = scene.slots[nextIndex];
+    cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown;
+}
+
+
+effects.push(cthulhuEffect);
