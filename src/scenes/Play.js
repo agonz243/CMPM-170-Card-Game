@@ -61,6 +61,8 @@ class Play extends Phaser.Scene {
         // Handle selection of card slot
         this.handlePlayPos(this);
         this.slotCard(this);
+
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
     update() {
@@ -85,13 +87,12 @@ class Play extends Phaser.Scene {
             Align.scaleToGameW(card, .1);
 
             card.isUpsideDown = (Math.random() < 0.5); // Set orientation
-            //if (card.isUpsideDown) { card.flipY = true; };
             card.interpretationUp = ""; // Rightside up interpretation FIXME
             card.interpretationDown = ""; // Upside down interpretation FIXME
             this.deck.push(card); // Add card to deck
 
             // Assign card effect from Effects.js
-            card.effect = effects[0] // FIXME
+            card.effect = effects[1] // FIXME
             card.disableInteractive();
         }
     }
@@ -259,6 +260,8 @@ class Play extends Phaser.Scene {
                         ease: 'Power2',
                         completeDelay: 3000
                     });
+
+                    gameObject.currSlot = scene.selectedSlot;
     
                     // Lock in card so it can no longer be moved
                     gameObject.disableInteractive();
