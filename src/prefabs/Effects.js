@@ -39,6 +39,7 @@ let nyaEffect = function (scene) {
 
     // Move cards to their new positions
     for (let i = 0; i < 3; i++) {
+        tempArr[i].currSlot = scene.slots[i].currSlot;
         scene.slots[i] = tempArr[i];
     }
 }
