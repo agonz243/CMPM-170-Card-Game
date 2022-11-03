@@ -56,4 +56,25 @@ let azathothEffect = function(scene, card) {
     }
 }
 
-effects.push(azathothEffect);
+let hydraEffect = function(scene, card) {
+    // Get cards to the left and right
+    let currIndex = scene.slots.indexOf(card);
+    let nextIndex = currIndex + 1;
+    let prevIndex = currIndex - 1;
+
+    if (nextIndex > 2) { nextIndex = 0; }
+    if (prevIndex < 0) { prevIndex = 2; }
+
+    let nextCard = scene.slots[nextIndex];
+    let prevCard = scene.slots[prevIndex];
+
+    if (nextCard.isUpsideDown && nextCard.cardSuit == "Old One") {
+        nextCard.isUpsideDown = false;
+    }
+
+    if (prevCard.isUpsideDown && prevCard.cardSuit == "Old One") {
+        prevCard.isUpsideDown = false;
+    }
+}
+
+effects.push(hydraEffect);
