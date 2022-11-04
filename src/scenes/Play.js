@@ -71,7 +71,6 @@ class Play extends Phaser.Scene {
         this.handlePlayPos(this);
         this.slotCard(this);
 
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.cardsActivated = false; // A boolean that tracks if card effects are resolved
     }
 
@@ -84,9 +83,33 @@ class Play extends Phaser.Scene {
         // Check if slots are full and activate cards if so
         if (!this.slots.includes(null) && !this.cardsActivated) {
             this.cardsActivated = true;
-            this.card1.effect(this, this.card1);
-            this.card2.effect(this, this.card2);
-            this.card3.effect(this, this.card3);
+
+            // First card effect
+            this.time.delayedCall(2000, ()=> {
+                this.card1.effect(this, this.card1);
+            });
+
+            // Second card effect
+            this.time.delayedCall(4000, ()=> {
+                this.card2.effect(this, this.card2);
+            });
+
+            // Third card effect
+            this.time.delayedCall(6000, ()=> {
+                this.card3.effect(this, this.card3);
+            });
+
+            // Display cards 
+            this.time.delayedCall(9000, () => {
+                this.tweens.add({
+                    targets: [this.card1, this.card2, this.card3],
+                    scale: 0.21,
+                    duration: 3000,
+                    ease: 'Power2',
+                    yoyo: false,
+                    completeDelay: 3000
+                });
+            });
         }
     }
 
