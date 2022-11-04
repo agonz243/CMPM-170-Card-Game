@@ -37,8 +37,30 @@ class Play extends Phaser.Scene {
         this.slots = [null, null, null] // Array representing slots in play area
         this.selectedSlot = null; // Currently selected slot for placing a card
 
+<<<<<<< Updated upstream
         // Instantiate array of card names
         this.cardNames = ["Madman", "Scholar", "Wilbur Whateley", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+=======
+        // Instantiate array of card names and suits
+        this.cardNames = ["Madman", "Scholar", "Wilbur Whateley", "Cthulhu", "Hydra", "Lilith", "Gleeth", "Inpesca", "Azathoth", "StarMother", "Yog-Sothoth", "Nyarlathotep"]
+        this.suits = ["Cultist", "Old One", "Outer God"];
+        this.cardintUp = ["Hysteria","Unity", "Hatred", "Honor", "Eternal Creation", "Charm", "Motivation", "Mystery", "Control over change", "Willpower", "Pursuit", "Discord"]
+        this.cardintReverse = ["Harmony","Conflict", "Rapid Growth", "Dishonor", "Limited Power", "Over-Confidence", "Amotivation", "Mystery", "Blindness", "Stationary", "Manipulation", "Charisma"]
+
+        this.ReadingUp = [
+        "You are having moments of uncontrollable outbreaks that will scare, confuse or hurt others",
+        "You are great at conflict resolution, and you will bring those close to you more together than ever.", 
+        "You are filled with hatred and rage towards something important and it will consume you.", 
+        "You are revered and honored.", 
+        "You are able to come up with unique ideas that will gather other people’s support.", 
+        "Your inner radiance will show in your actions, and your confidence will make you shine.", 
+        "You are in a stage of movement and progress. Let this energy push you forward.", 
+        "You are Keeping your plans hidden and allow only those you really trust into your mind.", 
+        "You are able to notice changes to yourself, surroundings and life, and will be able to control them.", 
+        "The strength you seek is with you.", 
+        "You are finding the answers you search for with your insight and knowledge of the world.", 
+        "You are in a time where everything is changing and nothing feels stable, and your behavior is mirroring it to others in your life."]
+>>>>>>> Stashed changes
 
         // Populate deck
         this.populateDeck();
@@ -62,7 +84,16 @@ class Play extends Phaser.Scene {
         this.handlePlayPos(this);
         this.slotCard(this);
 
+<<<<<<< Updated upstream
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+=======
+        this.cardsActivated = false; // A boolean that tracks if card effects are resolved
+        
+        // Play ambience
+        let ambience = this.sound.add('ambience',{volume: 0.5});
+        ambience.loop = true;
+        ambience.play();
+>>>>>>> Stashed changes
     }
 
     update() {
@@ -71,6 +102,7 @@ class Play extends Phaser.Scene {
         this.card2.update();
         this.card3.update();
 
+<<<<<<< Updated upstream
         // Check if slots are full
         if (!this.slots.includes(null)) {
             console.log("Slots full");
@@ -79,6 +111,49 @@ class Play extends Phaser.Scene {
         // A way to test card effects FIXME
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             this.card1.effect(this, this.card1);   
+=======
+        // Check if slots are full and activate cards if so
+        if (!this.slots.includes(null) && !this.cardsActivated) {
+            this.cardsActivated = true;
+            let gong = this.sound.add('gong');
+            gong.play(); // Spooky gong 0_0
+
+            // First card effect
+            this.time.delayedCall(2000, ()=> {
+                this.card1.effect(this, this.card1);
+            });
+
+            // Second card effect
+            this.time.delayedCall(4000, ()=> {
+                this.card2.effect(this, this.card2);
+            });
+
+            // Third card effect
+            this.time.delayedCall(6000, ()=> {
+                this.card3.effect(this, this.card3);
+            });
+
+            // Display cards 
+            this.time.delayedCall(9000, () => {
+                this.tweens.add({
+                    targets: [this.card1, this.card2, this.card3],
+                    scale: 0.21,
+                    duration: 3000,
+                    ease: 'Power2',
+                    yoyo: false,
+                    completeDelay: 3000
+                });
+            });
+
+            //Intrepretation For Present
+            if(this.slots[1].isUpsideDown == false){
+                console.log(this.slots[1].cardName + " means " + this.slots[1].interpretationUp);
+                console.log(this.ReadingUp[this.slots[0].sentence]);
+            }
+            
+            console.log(this.slots[1].cardName + " means " + this.slots[1].interpretationUp);
+            console.log(this.slots[2].cardName + " means " + this.slots[2].interpretationUp);
+>>>>>>> Stashed changes
         }
     }
 
@@ -88,12 +163,16 @@ class Play extends Phaser.Scene {
         // Add cards to deck
         for (let i = 0; i < game.settings.cardCount; i++) {
             // Create card instance with corresponding attributes
+<<<<<<< Updated upstream
             let card = new Card(this, this.cardNames[i], 'Dummy Suit', this.cardNames[0]); // FIXME
+=======
+            let card = new Card(this, this.cardNames[i], this.suits[suitIndex], this.cardNames[i], this.cardintUp[i], this.cardintReverse[i],i);
+>>>>>>> Stashed changes
             Align.scaleToGameW(card, .1);
 
             card.isUpsideDown = (Math.random() < 0.5); // Set orientation
-            card.interpretationUp = ""; // Rightside up interpretation FIXME
-            card.interpretationDown = ""; // Upside down interpretation FIXME
+           //card.interpretationUp = ""; // Rightside up interpretation FIXME
+           //card.interpretationDown = ""; // Upside down interpretation FIXME
             this.deck.push(card); // Add card to deck
 
             // Assign card effect from Effects.js

@@ -6,6 +6,11 @@ class Menu extends Phaser.Scene {
     preload() {
       // Preload assets for menu
       this.load.image('title', './assets/titlescreen.png');
+<<<<<<< Updated upstream
+=======
+      this.load.audio('ambience', './assets/ambience.wav');
+      this.load.audio('titlebgm', './assets/TitleTheme.mp3');
+>>>>>>> Stashed changes
     }
 
     create() {
@@ -24,6 +29,10 @@ class Menu extends Phaser.Scene {
         }
 
         this.add.image(game.config.width / 2, game.config.height / 2, 'title');
+        let TT = this.sound.add('titlebgm',{volume: 0.5});
+        TT.loop = true;
+        
+        TT.play();
 
         // Define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -32,10 +41,16 @@ class Menu extends Phaser.Scene {
         game.settings = {
           cardCount: 12
         }
+<<<<<<< Updated upstream
+=======
+
+        
+>>>>>>> Stashed changes
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+          this.sound.get('titlebgm').stop();
           this.scene.start('playScene');    
         }
     }

@@ -1,16 +1,17 @@
 // Prefab for the cards
 
 class Card extends Phaser.GameObjects.Sprite {
-    constructor(scene, name, suit, texture ) {
+    constructor(scene, name, suit, texture, interUp, interReverse, readingNum) {
       super(scene, name, suit, texture);
 
       // Set attributes
       this.cardName = name;
       this.cardSuit = suit;
       this.isUpsideDown = false;
-      this.interpretationUp = "";
-      this.interpretationDown = "";
+      this.interpretationUp = interUp;
+      this.interpretationDown = interReverse;
       this.effect;
+      this.sentence = readingNum;
       this.currSlot = null;
       this.isProtected = false;
 
