@@ -45,8 +45,9 @@ class Play extends Phaser.Scene {
         this.slots = [null, null, null] // Array representing slots in play area
         this.selectedSlot = null; // Currently selected slot for placing a card
 
-        // Instantiate array of card names
+        // Instantiate array of card names and suits
         this.cardNames = ["Madman", "Scholar", "Wilbur Whateley", "Cthulhu", "Hydra", "Lilith", "Gleeth", "Inpesca", "Azathoth", "StarMother", "Yog-Sothoth", "Nyarlathotep"]
+        this.suits = ["Cultist", "Old One", "Outer God"];
 
         // Populate deck
         this.populateDeck();
@@ -93,10 +94,11 @@ class Play extends Phaser.Scene {
 /*------------------------------------------------------------------------------------------*/
     // FUNCTION: Populates the deck with card objects with their corresponding attributes
     populateDeck() {
+        let suitIndex = 0; // The index to use when assigning the suits
         // Add cards to deck
         for (let i = 0; i < game.settings.cardCount; i++) {
             // Create card instance with corresponding attributes
-            let card = new Card(this, this.cardNames[i], 'Dummy Suit', this.cardNames[i]); // FIXME
+            let card = new Card(this, this.cardNames[i], this.suits[suitIndex], this.cardNames[i]);
             Align.scaleToGameW(card, .1);
 
             card.isUpsideDown = (Math.random() < 0.5); // Set orientation
@@ -107,6 +109,10 @@ class Play extends Phaser.Scene {
             // Assign card effect from Effects.js
             card.effect = effects[i]
             card.disableInteractive();
+
+            // Increment suit index if necessary
+            if (i == 2) { suitIndex++; } // Move to old ones
+            if (i == 7) { suitIndex++; } // Move to outer gods
         }
     }
 
