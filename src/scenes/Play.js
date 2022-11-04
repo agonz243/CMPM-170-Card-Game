@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         this.load.image('cardface', './assets/cardFace.png');
         this.load.image('bg', './assets/background.png');
         this.load.audio('placecard', './assets/cardflip.wav');
+        this.load.audio('gong', './assets/gong.wav');
 
         // Load card faces
         this.load.image('Madman', './assets/cards/madman_card.png');
@@ -83,6 +84,8 @@ class Play extends Phaser.Scene {
         // Check if slots are full and activate cards if so
         if (!this.slots.includes(null) && !this.cardsActivated) {
             this.cardsActivated = true;
+            let gong = this.sound.add('gong');
+            gong.play(); // Spooky gong 0_0
 
             // First card effect
             this.time.delayedCall(2000, ()=> {
