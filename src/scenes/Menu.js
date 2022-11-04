@@ -6,6 +6,7 @@ class Menu extends Phaser.Scene {
     preload() {
       // Preload assets for menu
       this.load.image('title', './assets/titlescreen.png');
+      this.load.audio('ambience', './assets/ambience.wav');
     }
 
     create() {
@@ -32,6 +33,11 @@ class Menu extends Phaser.Scene {
         game.settings = {
           cardCount: 12
         }
+
+        // Play ambience
+        let ambience = this.sound.add('ambience');
+        ambience.loop = true;
+        ambience.play();
     }
 
     update() {

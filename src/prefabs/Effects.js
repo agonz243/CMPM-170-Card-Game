@@ -253,17 +253,19 @@ let msEffect = function (scene, card) {
             nextCard = scene.slots[i + 1];
             nextIndex = i + 1;
         }
-        if(currCard.isUpsideDown == true){
+        if(currCard.isUpsideDown == true && !currCard.isProtected){
             currCard.isUpsideDown = false;
+
+            scene.tweens.add({
+                targets: currCard,
+                scale: 0.21,
+                duration: 1000,
+                ease: 'Power2',
+                yoyo: true,
+                completeDelay: 3000
+            });
         }
-        scene.tweens.add({
-            targets: currCard,
-            scale: 0.21,
-            duration: 1000,
-            ease: 'Power2',
-            yoyo: true,
-            completeDelay: 3000
-        });
+
         
     }
 }
