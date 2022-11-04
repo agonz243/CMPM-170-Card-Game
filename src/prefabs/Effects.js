@@ -93,4 +93,28 @@ let lilithEffect = function(scene, card) {
         prevCard.isProtected = true;
 }
 
-effects.push(lilithEffect);
+
+let madmanEffect = function(scene, card) {
+    // Get cards to the left and right
+    let currIndex = scene.slots.indexOf(card);
+    let nextIndex = currIndex + 1;
+    let prevIndex = currIndex - 1;
+
+    if (nextIndex > 2) { nextIndex = 0; }
+    if (prevIndex < 0) { prevIndex = 2; }
+
+    let nextCard = scene.slots[nextIndex];
+    let prevCard = scene.slots[prevIndex];
+
+    if (card.isUpsideDown) {
+        if (!prevCard.isProtected) {
+            prevCard.isUpsideDown = !prevCard.isUpsideDown;
+        }
+
+        if (!nextCard.isProtected) {
+            nextCard.isUpsideDown = !nextCard.isUpsideDown;
+        }
+    }
+}
+
+effects.push(madmanEffect);
