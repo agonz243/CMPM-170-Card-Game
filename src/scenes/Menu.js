@@ -37,6 +37,7 @@ class Menu extends Phaser.Scene {
         // Play bgm
         let music = this.sound.add('bgm');
         music.loop = true;
+        music.volume = 0.4;
         music.play();
     }
 
