@@ -12,6 +12,15 @@ class Play extends Phaser.Scene {
         this.load.image('Madman', './assets/cards/madman_card.png');
         this.load.image('Scholar', './assets/cards/scholar_card.png');
         this.load.image('Wilbur Whateley', './assets/cards/wilbur_card.png');
+        this.load.image('Cthulhu', './assets/cards/cthulhu_card.png');
+        this.load.image('Hydra', './assets/cards/hydra_card.png');
+        this.load.image('Lilith', './assets/cards/lilith_card.png');
+        this.load.image('Gleeth', './assets/cards/gleeth_card.png');
+        this.load.image('Inpesca', './assets/cards/inpesca_card.png');
+        this.load.image('Azathoth', './assets/cards/azathoth_card.png');
+        this.load.image('StarMother', './assets/cards/starmother_card.png');
+        this.load.image('Yog-Sothoth', './assets/cards/yog_card.png');
+        this.load.image('Nyarlathotep', './assets/cards/nya_card.png');
     }
 
     create() {
@@ -38,7 +47,7 @@ class Play extends Phaser.Scene {
         this.selectedSlot = null; // Currently selected slot for placing a card
 
         // Instantiate array of card names
-        this.cardNames = ["Madman", "Scholar", "Wilbur Whateley", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+        this.cardNames = ["Madman", "Scholar", "Wilbur Whateley", "Cthulhu", "Hydra", "Lilith", "Gleeth", "Inpesca", "Azathoth", "StarMother", "Yog-Sothoth", "Nyarlathotep"]
 
         // Populate deck
         this.populateDeck();
@@ -88,7 +97,7 @@ class Play extends Phaser.Scene {
         // Add cards to deck
         for (let i = 0; i < game.settings.cardCount; i++) {
             // Create card instance with corresponding attributes
-            let card = new Card(this, this.cardNames[i], 'Dummy Suit', this.cardNames[0]); // FIXME
+            let card = new Card(this, this.cardNames[i], 'Dummy Suit', this.cardNames[i]); // FIXME
             Align.scaleToGameW(card, .1);
 
             card.isUpsideDown = (Math.random() < 0.5); // Set orientation
