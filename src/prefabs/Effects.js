@@ -117,4 +117,16 @@ let madmanEffect = function(scene, card) {
     }
 }
 
-effects.push(madmanEffect);
+let scholarEffect = function(scene, card) {
+    // Get card to the left
+    let currIndex = scene.slots.indexOf(card);
+    let prevIndex = currIndex - 1;
+
+    if (prevIndex < 0) { prevIndex = 2; }
+
+    let prevCard = scene.slots[prevIndex];
+
+    prevCard.isUpsideDown = card.isUpsideDown;
+}
+
+effects.push(scholarEffect);
