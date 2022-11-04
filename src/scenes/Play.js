@@ -31,7 +31,6 @@ class Play extends Phaser.Scene {
 
         // Create align grid for placing cards in play area
         this.aGrid = new AlignGrid({scene: this, rows: 10, cols: 9});
-        //this.aGrid.showNumbers(); // FIXME
 
         // Instantiate deck as array and the player's three cards
         this.deck = [];
@@ -121,7 +120,7 @@ class Play extends Phaser.Scene {
         this.card2 = Phaser.Utils.Array.Remove(this.deck, this.deck[1]);
         this.card3 = Phaser.Utils.Array.Remove(this.deck, this.deck[2]);
 
-        // Place cards at respective positions FIXME
+        // Place cards at respective positions
         this.aGrid.placeAtIndex(52, this.card1);
         this.aGrid.placeAtIndex(52, this.card2);
         this.aGrid.placeAtIndex(52, this.card3);
