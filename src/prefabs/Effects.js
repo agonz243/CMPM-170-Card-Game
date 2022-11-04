@@ -49,7 +49,15 @@ let cthulhuEffect = function(scene, card) {
     let cardToFlip = scene.slots[nextIndex];
 
     if (!cardToFlip.isProtected) {
-       cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown; 
+       cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown;
+       scene.tweens.add({
+        targets: cardToFlip,
+        scale: 0.21,
+        duration: 1000,
+        ease: 'Power2',
+        yoyo: true,
+        completeDelay: 3000
+    });
     }
     
 }
@@ -57,6 +65,14 @@ let cthulhuEffect = function(scene, card) {
 let azathothEffect = function(scene, card) {
     if (card.isUpsideDown && !card.isProtected) {
         card.isUpsideDown = !card.isUpsideDown;
+        scene.tweens.add({
+            targets: card,
+            scale: 0.21,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            completeDelay: 3000
+        });
     }
 }
 
@@ -74,10 +90,26 @@ let hydraEffect = function(scene, card) {
 
     if (nextCard.isUpsideDown && !nextCard.isProtected && nextCard.cardSuit == "Old One") {
         nextCard.isUpsideDown = false;
+        scene.tweens.add({
+            targets: nextCard,
+            scale: 0.21,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            completeDelay: 3000
+        });
     }
 
     if (prevCard.isUpsideDown && !nextCard.isProtected && prevCard.cardSuit == "Old One") {
         prevCard.isUpsideDown = false;
+        scene.tweens.add({
+            targets: prevCard,
+            scale: 0.21,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            completeDelay: 3000
+        });
     }
 }
 
@@ -109,10 +141,26 @@ let madmanEffect = function(scene, card) {
     if (card.isUpsideDown) {
         if (!prevCard.isProtected) {
             prevCard.isUpsideDown = !prevCard.isUpsideDown;
+            scene.tweens.add({
+                targets: prevCard,
+                scale: 0.21,
+                duration: 1000,
+                ease: 'Power2',
+                yoyo: true,
+                completeDelay: 3000
+            });
         }
 
         if (!nextCard.isProtected) {
             nextCard.isUpsideDown = !nextCard.isUpsideDown;
+            scene.tweens.add({
+                targets: nextCard,
+                scale: 0.21,
+                duration: 1000,
+                ease: 'Power2',
+                yoyo: true,
+                completeDelay: 3000
+            });
         }
     }
 }
@@ -172,38 +220,22 @@ let gleethEffect = function (scene) {
 //Inpesca Functional
 //Can flip any card on the field randomly
 let inpescaEffect = function (scene) {
-    let tempArr = [null, null, null];
-    //var SwapNum = Phaser.Math.Between(0, 5);
-    var FlipNum = Phaser.Math.Between(0,5);
-    console.log(FlipNum);
-    // Flip all cards
-    for (let i = 0; i < FlipNum; i++) {
-        let currCard = scene.slots[i%3];
-        let nextCard;
-        let nextIndex;
-        if (i%3 == 2) {
-            nextCard = scene.slots[0];
-            nextIndex = 0;
-        } else {
-            nextCard = scene.slots[i%3 + 1];
-            nextIndex = i%3 + 1;
-        }
-        if (!cardToFlip.isProtected) {
-            cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown; 
-            scene.tweens.add({
-                targets: currCard,
-                x: currCard.currSlot.x - 10,
-                y: currCard.currSlot.y + 10,
-                scale: 0.21,
-                duration: 2000,
-                ease: 'Power2',
-                yoyo: true,
-                completeDelay: 3000
-            });
-        }
-        
-    }
+    let flipNum = Phaser.Math.Between(0,2);
+    console.log(flipNum);
 
+    // Flip randomly selected card
+    let cardToFlip = scene.slots[flipNum];
+    if (!cardToFlip.isProtected) {
+        cardToFlip.isUpsideDown = !cardToFlip.isUpsideDown; 
+        scene.tweens.add({
+            targets: cardToFlip,
+            scale: 0.21,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            completeDelay: 3000
+        });
+    }
 }
 
 //MotherStar: Functioning
@@ -226,10 +258,8 @@ let msEffect = function (scene, card) {
         }
         scene.tweens.add({
             targets: currCard,
-            x: currCard.currSlot.x - 10,
-            y: currCard.currSlot.y + 10,
             scale: 0.21,
-            duration: 2000,
+            duration: 1000,
             ease: 'Power2',
             yoyo: true,
             completeDelay: 3000
@@ -295,33 +325,23 @@ let wwEffect = function (scene, card) {
     let nextCard = scene.slots[nextIndex];
     //Check to see if Card on Right is protected and is a Cultist
     if (!nextCard.isProtected && nextCard.cardSuit == "Cultist") {
-        if(nextCard.isUpsideDown == true){
-            nextCard.isUpsideDown = false;
-        }
-        else if(nextCard.isUpsideDown == false){
-            nextCard.isUpsideDown = true;
-        }
+        nextCard.isUpsideDown = !nextCard.isUpsideDown;
     }
     //Check to see if Card on Left is protected and is a Cultist
     if (!prevCard.isProtected && prevCard.cardSuit == "Cultist") {
-        if(prevCard.isUpsideDown == true){
-            prevCard.isUpsideDown = false;
-        }
-        else if(prevCard.isUpsideDown == false){
-            prevCard.isUpsideDown = true;
-        }
+        prevCard.isUpsideDown = !prevCard.isUpsideDown;
     }
 }
 
-effects.push(cthulhuEffect);
-effects.push(azathothEffect);
-effects.push(hydraEffect);
-effects.push(lilithEffect);
 effects.push(madmanEffect);
 effects.push(scholarEffect);
+effects.push(wwEffect);
+effects.push(cthulhuEffect);
+effects.push(hydraEffect);
+effects.push(lilithEffect);
 effects.push(gleethEffect);
 effects.push(inpescaEffect);
+effects.push(azathothEffect);
 effects.push(msEffect);
 effects.push(yogEffect);
 effects.push(nyaEffect);
-effects.push(wwEffect);

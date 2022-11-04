@@ -106,7 +106,7 @@ class Play extends Phaser.Scene {
             this.deck.push(card); // Add card to deck
 
             // Assign card effect from Effects.js
-            card.effect = effects[0] // FIXME
+            card.effect = effects[i]
             card.disableInteractive();
         }
     }
