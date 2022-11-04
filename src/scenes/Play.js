@@ -72,6 +72,7 @@ class Play extends Phaser.Scene {
         this.slotCard(this);
 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.cardsActivated = false; // A boolean that tracks if card effects are resolved
     }
 
     update() {
@@ -80,14 +81,12 @@ class Play extends Phaser.Scene {
         this.card2.update();
         this.card3.update();
 
-        // Check if slots are full
-        if (!this.slots.includes(null)) {
-            console.log("Slots full");
-        }
-
-        // A way to test card effects FIXME
-        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.card1.effect(this, this.card1);   
+        // Check if slots are full and activate cards if so
+        if (!this.slots.includes(null) && !this.cardsActivated) {
+            this.cardsActivated = true;
+            this.card1.effect(this, this.card1);
+            this.card2.effect(this, this.card2);
+            this.card3.effect(this, this.card3);
         }
     }
 
