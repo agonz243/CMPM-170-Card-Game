@@ -129,8 +129,6 @@ let scholarEffect = function(scene, card) {
     prevCard.isUpsideDown = card.isUpsideDown;
 }
 
-effects.push(scholarEffect);
-
 //Gleeth Functional
 //Moves all cards Left
 let gleethEffect = function (scene) {
@@ -170,11 +168,10 @@ let gleethEffect = function (scene) {
         scene.slots[i] = tempArr[i];
     }
 }
-effects.push(gleethEffect);
 
-//Impesca Functional
+//Inpesca Functional
 //Can flip any card on the field randomly
-let impescaEffect = function (scene) {
+let inpescaEffect = function (scene) {
     let tempArr = [null, null, null];
     //var SwapNum = Phaser.Math.Between(0, 5);
     var FlipNum = Phaser.Math.Between(0,5);
@@ -208,7 +205,6 @@ let impescaEffect = function (scene) {
     }
 
 }
-effects.push(impescaEffect);
 
 //MotherStar: Functioning
 //Makes all cards upright
@@ -242,7 +238,6 @@ let msEffect = function (scene, card) {
     }
 }
 
-effects.push(msEffect);
 
 //Yog-Sothoth Effect Functional
 //Swaps the cards on the right and left
@@ -283,7 +278,6 @@ let yogEffect = function (scene, card) {
         scene.slots[i] = tempArr[i];
     }
 }
-effects.push(yogEffect);
 
 //Wilbur Whatley Effect Functional
 //Flips any cultist Suit cards
@@ -319,4 +313,15 @@ let wwEffect = function (scene, card) {
     }
 }
 
+effects.push(cthulhuEffect);
+effects.push(azathothEffect);
+effects.push(hydraEffect);
+effects.push(lilithEffect);
+effects.push(madmanEffect);
+effects.push(scholarEffect);
+effects.push(gleethEffect);
+effects.push(inpescaEffect);
+effects.push(msEffect);
+effects.push(yogEffect);
+effects.push(nyaEffect);
 effects.push(wwEffect);
